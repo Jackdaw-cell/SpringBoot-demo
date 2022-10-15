@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间namespace对应接口名称-->
+<mapper namespace="com.memberSystem.mapper.memberLevelMapper">
+<!--        查询全部数据-->
+        <resultMap  id="memberLevelMap" type="com.memberSystem.entity.memberLevel">
+                <id property="memberId" column="member_id"></id>
+                <result property="levelName" column="level_name"></result>
+                <result property="expDemandStart" column="exp_demand_start"></result>
+                <result property="expDemandEnd" column="exp_demand_end"></result>
+                <result property="isShow" column="is_show"></result>
+                <result property="background" column="background"></result>
+                <result property="avatar" column="avatar"></result>
+                <result property="isDefault" column="isDefault"></result>
+                <result property="createId" column="create_id"></result>
+                <result property="createTime" column="create_time"></result>
+                <result property="updateId" column="update_id"></result>
+                <result property="updateTime" column="update_time"></result>
+                <result property="delFlag" column="del_flag"></result>
+        </resultMap>
+        <select id="findAll" resultMap="memberLevelMap" >
+                SELECT * FROM member_system.member_level limit #{pageNum},#{pageSize}
+        </select>
+<!--        关键词查询-->
+        <select id="findByKey" resultMap="memberLevelMap" >
+                SELECT * FROM member_system.member_level
+                <where>
+                        member_id like '%${keyWord}%' or
+                        level_name like '%${keyWord}%' or
+                        exp_demand_start like '%${keyWord}%' or
+                        create_id like '%${keyWord}%' or
+                        update_id like '%${keyWord}%'
+                </where>
+                limit #{pageNum},#{pageSize}
+        </select>
+<!--        查询单个用户-->
+        <select id="memberLevelGet" resultMap="memberLevelMap">
+                SELECT * FROM member_system.member_level where member_id=#{memberId}
+        </select>
+<!--        数据总数-->
+        <select id="dataCounts" resultType="java.lang.Integer">
+                select count(*) FROM member_system.member_level
+                <where>
+                        member_id like '%${keyWord}%' or
+                        level_name like '%${keyWord}%' or
+                        exp_demand_start like '%${keyWord}%' or
+                        exp_demand_end like '%${keyWord}%' or
+                        create_id like '%${keyWord}%' or
+                        update_id like '%${keyWord}%'
+                </where>
+        </select>
+<!--        更新-->
+        <update id="update"  parameterType="integer">
+                UPDATE member_system.member_level
+                <set>
+                        <if test="#{levelName}!=null">
+                                level_name =#{levelName},
+                        </if>
+                        <if test="#{expDemandStart}!=null">
+                                exp_demand_start = #{expDemandStart},
+                        </if>
+                        <if test="#{expDemandStart}!=null">
+                                exp_demand_end = #{expDemandEnd},
+                        </if>
+                        <if test="#{isShow}!=null">
+                                is_show =  #{isShow},
+                        </if>
+                        <if test="#{background}!=null">
+                                background = #{background},
+                        </if>
+                        <if test="#{avatar}!=null">
+                                avatar = #{avatar},
+                        </if>
+                        <if test=" #{isDefault}!=null">
+                                is_default = #{isDefault},
+                        </if>
+                        <if test="#{createId}!=null">
+                                create_id= #{createId},
+                        </if>
+                        <if test="#{updateId}!=null">
+                                update_id = #{updateId},
+                        </if>
+                        <if test="#{delFlag}!=null">
+                                del_flag=  #{delFlag}
+                        </if>
+                </set>
+                <where>member_id = #{memberId}</where>
+        </update>
+</mapper>
