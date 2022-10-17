@@ -26,30 +26,30 @@
                 </collection>
         </resultMap>
         <select id="findAll" resultMap="memberLevelMap" >
-                SELECT *,C.credential_id,C.credential_name,C.is_vip
-                FROM member_system.member_level as A
-                right join member_system.member_level_m_c AS B
+                SELECT A.member_id,level_name,exp_demand_start,exp_demand_end,A.is_show,background,A.avatar,is_default,A.create_id,C.credential_id,C.credential_name,C.is_vip
+                FROM (select * from member_system.member_level limit #{pageNum},#{pageSize}) as A
+                inner join member_system.member_level_m_c AS B
                 on A.member_id=B.member_id
-                left join member_system.member_level_credentials AS C
+                inner join member_system.member_level_credentials AS C
                 on B.credential_id=C.credential_id
-                limit #{pageNum},#{pageSize}
         </select>
 <!--        关键词查询-->
         <select id="findByKey" resultMap="memberLevelMap" >
-                SELECT *,C.credential_id,C.credential_name,C.is_vip
-                FROM member_system.member_level as A
-                left join member_system.member_level_m_c AS B
+                SELECT A.member_id,level_name,exp_demand_start,exp_demand_end,A.is_show,background,A.avatar,is_default,A.create_id,C.credential_id,C.credential_name,C.is_vip
+                FROM (select * from member_system.member_level limit #{pageNum},#{pageSize}) as A
+                inner join member_system.member_level_m_c AS B
                 on A.member_id=B.member_id
-                left join member_system.member_level_credentials AS C
+                inner join member_system.member_level_credentials AS C
                 on B.credential_id=C.credential_id
                 <where>
-                        member_id like '%${keyWord}%' or
+                        A.member_id like '%${keyWord}%' or
                         level_name like '%${keyWord}%' or
                         exp_demand_start like '%${keyWord}%' or
-                        create_id like '%${keyWord}%' or
-                        update_id like '%${keyWord}%'
+                        exp_demand_end like '%${keyWord}%' or
+                        A.create_id like '%${keyWord}%' or
+                        C.credential_name like '%${keyWord}%'
                 </where>
-                limit #{pageNum},#{pageSize}
+
         </select>
 <!--        查询单个用户-->
         <select id="memberLevelGet" resultMap="memberLevelMap">
@@ -57,15 +57,22 @@
         </select>
 <!--        数据总数-->
         <select id="dataCounts" resultType="java.lang.Integer">
-                select count(*) FROM member_system.member_level
+                select  count(*)
+                FROM (SELECT A.member_id,A.level_name,A.exp_demand_start,A.exp_demand_end,A.create_id,A.update_id,ANY_VALUE(C.credential_name)
+                FROM (select * from member_system.member_level ) as A
+                inner join member_system.member_level_m_c AS B
+                on A.member_id=B.member_id
+                inner join member_system.member_level_credentials AS C
+                on B.credential_id=C.credential_id
                 <where>
-                        member_id like '%${keyWord}%' or
+                        A.member_id like '%${keyWord}%' or
                         level_name like '%${keyWord}%' or
                         exp_demand_start like '%${keyWord}%' or
                         exp_demand_end like '%${keyWord}%' or
-                        create_id like '%${keyWord}%' or
-                        update_id like '%${keyWord}%'
+                        A.create_id like '%${keyWord}%' or
+                        C.credential_name like '%${keyWord}%'
                 </where>
+                GROUP BY A.member_id) as tmp
         </select>
 <!--        更新-->
         <update id="update"  parameterType="integer">

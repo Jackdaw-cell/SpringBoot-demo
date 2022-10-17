@@ -6,7 +6,7 @@ import java.util.List;
 
 @Component
 public class memberLevel {
-    private Integer memberId;
+    private Long memberId;
     private String levelName;
     private String expDemandStart;
     private String expDemandEnd;
@@ -55,7 +55,7 @@ public class memberLevel {
         this.updateTime = updateTime;
     }
 
-    public memberLevel(Integer memberId, String levelName, String expDemandStart, String expDemandEnd, char isShow, String background, String avatar, char isDefault, Integer createId, String createTime, Integer updateId, String updateTime, Integer delFlag) {
+    public memberLevel(Long memberId, String levelName, String expDemandStart, String expDemandEnd, char isShow, String background, String avatar, char isDefault, Integer createId, String createTime, Integer updateId, String updateTime, Integer delFlag) {
         this.memberId = memberId;
         this.levelName = levelName;
         this.expDemandStart = expDemandStart;
@@ -79,11 +79,11 @@ public class memberLevel {
         return updateTime;
     }
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 

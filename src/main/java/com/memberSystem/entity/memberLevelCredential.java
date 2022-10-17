@@ -33,8 +33,6 @@ public class memberLevelCredential {
         this.levelName = levelName;
     }
 
-
-
     public memberLevelCredential() {
     }
 
