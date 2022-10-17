@@ -19,13 +19,29 @@
                 <result property="updateId" column="update_id"></result>
                 <result property="updateTime" column="update_time"></result>
                 <result property="delFlag" column="del_flag"></result>
+                <collection property="memberLevelCredentials" ofType="com.memberSystem.entity.memberLevelCredential">
+                        <id property="credentialId" column="credential_id" ></id>
+                        <result property="credentialName" column="credential_name" ></result>
+                        <result property="isVip" column="is_vip" ></result>
+                </collection>
         </resultMap>
         <select id="findAll" resultMap="memberLevelMap" >
-                SELECT * FROM member_system.member_level limit #{pageNum},#{pageSize}
+                SELECT *,C.credential_id,C.credential_name,C.is_vip
+                FROM member_system.member_level as A
+                right join member_system.member_level_m_c AS B
+                on A.member_id=B.member_id
+                left join member_system.member_level_credentials AS C
+                on B.credential_id=C.credential_id
+                limit #{pageNum},#{pageSize}
         </select>
 <!--        关键词查询-->
         <select id="findByKey" resultMap="memberLevelMap" >
-                SELECT * FROM member_system.member_level
+                SELECT *,C.credential_id,C.credential_name,C.is_vip
+                FROM member_system.member_level as A
+                left join member_system.member_level_m_c AS B
+                on A.member_id=B.member_id
+                left join member_system.member_level_credentials AS C
+                on B.credential_id=C.credential_id
                 <where>
                         member_id like '%${keyWord}%' or
                         level_name like '%${keyWord}%' or

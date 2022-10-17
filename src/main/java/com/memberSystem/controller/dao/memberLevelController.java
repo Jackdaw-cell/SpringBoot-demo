@@ -1,12 +1,10 @@
-package com.memberSystem.controller;
+package com.memberSystem.controller.dao;
 
 import com.memberSystem.entity.memberLevel;
-import com.memberSystem.mapper.memberLevelMapper;
-import com.memberSystem.service.memberLevelService;
+import com.memberSystem.service.impl.memberLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +26,8 @@ public class memberLevelController {
     @GetMapping("/memberLevel")
     public Map<String, Object> find(@RequestParam Integer pageNum,@RequestParam Integer pageSize,@RequestParam String keyWord){
         pageNum=(pageNum-1)*pageSize;
-        Integer total=memberLevelService.dataCounts(keyWord);
         List<memberLevel> data= memberLevelService.find(pageNum,pageSize,keyWord);
+        Integer total=data.size();
         Map<String,Object> res=new HashMap<>();
         res.put("total",total);
         res.put("data",data);

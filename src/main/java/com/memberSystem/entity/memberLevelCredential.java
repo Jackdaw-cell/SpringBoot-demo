@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 public class memberLevelCredential {
     Integer credentialId;
     String avatar;
-    String credentialsName;
-    String credentialsStatement;
+    String credentialName;
+    String credentialStatement;
     char isShow;
     Integer isVip;
     Integer createId;
@@ -33,18 +33,7 @@ public class memberLevelCredential {
         this.levelName = levelName;
     }
 
-    public memberLevelCredential(Integer credentialId, String avatar, String credentialsName, String credentialsStatement, char isShow, Integer createId, String createTime, Integer updateId, String updateTime, char delFlag) {
-        this.credentialId = credentialId;
-        this.avatar = avatar;
-        this.credentialsName = credentialsName;
-        this.credentialsStatement = credentialsStatement;
-        this.isShow = isShow;
-        this.createId = createId;
-        this.createTime = createTime;
-        this.updateId = updateId;
-        this.updateTime = updateTime;
-        this.delFlag = delFlag;
-    }
+
 
     public memberLevelCredential() {
     }
@@ -66,19 +55,19 @@ public class memberLevelCredential {
     }
 
     public String getCredentialsName() {
-        return credentialsName;
+        return credentialName;
     }
 
     public void setCredentialsName(String credentialsName) {
-        this.credentialsName = credentialsName;
+        this.credentialName = credentialsName;
     }
 
     public String getCredentialsStatement() {
-        return credentialsStatement;
+        return credentialStatement;
     }
 
     public void setCredentialsStatement(String credentialsStatement) {
-        this.credentialsStatement = credentialsStatement;
+        this.credentialStatement = credentialsStatement;
     }
 
     public char getIsShow() {

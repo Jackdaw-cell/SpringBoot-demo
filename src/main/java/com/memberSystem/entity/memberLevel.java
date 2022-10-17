@@ -2,6 +2,8 @@ package com.memberSystem.entity;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class memberLevel {
     private Integer memberId;
@@ -17,6 +19,17 @@ public class memberLevel {
     private Integer updateId;
     private String updateTime;
     private Integer delFlag;
+
+//    权益集合
+    private List<memberLevelCredential> memberLevelCredentials;
+
+    public List<memberLevelCredential> getMemberLevelCredentials() {
+        return memberLevelCredentials;
+    }
+
+    public void setMemberLevelCredentials(List<memberLevelCredential> memberLevelCredentials) {
+        this.memberLevelCredentials = memberLevelCredentials;
+    }
 
     public String getExpDemandStart() {
         return expDemandStart;

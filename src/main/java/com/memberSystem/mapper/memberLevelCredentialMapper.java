@@ -20,14 +20,13 @@ public interface memberLevelCredentialMapper {
     Integer dataCounts(String keyWord);
 
     @Insert("insert into member_system.member_level_credentials" +
-            "(credential_id,avatar,credentials_name,credentials_statement.is_vip,is_show,create_id,update_id) " +
-            "values(#{credentialId},#{avatar},#{credentialsName},#{credentialsStatement},#{isVip},#{isShow}, #{createId}, #{updateId});")
+            "(credential_id,avatar,credential_name,credential_statement,is_vip,is_show,create_id,update_id) " +
+            "values(#{credentialId},#{avatar},#{credentialName},#{credentialStatement},#{isVip},#{isShow}, #{createId}, #{updateId});")
     Integer insert(memberLevelCredential memberLevelCredential);
 
     Integer update(memberLevelCredential memberLevelCredential);
 
     @Delete("delete from member_system.member_level_credentials where credential_id=#{credentialId}")
     Integer delete( Integer credentialId);
-
 
 }

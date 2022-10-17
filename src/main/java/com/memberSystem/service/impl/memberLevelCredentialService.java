@@ -1,9 +1,7 @@
-package com.memberSystem.service;
+package com.memberSystem.service.impl;
 
-import com.memberSystem.entity.memberLevel;
 import com.memberSystem.entity.memberLevelCredential;
 import com.memberSystem.mapper.memberLevelCredentialMapper;
-import com.memberSystem.mapper.memberLevelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

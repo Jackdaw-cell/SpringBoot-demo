@@ -1,8 +1,7 @@
-package com.memberSystem.controller;
+package com.memberSystem.controller.dao;
 
-import com.memberSystem.entity.memberLevel;
 import com.memberSystem.entity.memberLevelCredential;
-import com.memberSystem.service.memberLevelCredentialService;
+import com.memberSystem.service.impl.memberLevelCredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

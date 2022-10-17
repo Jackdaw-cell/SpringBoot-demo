@@ -1,4 +1,4 @@
-package com.memberSystem.service;
+package com.memberSystem.service.impl;
 
 import com.memberSystem.entity.memberLevel;
 import com.memberSystem.mapper.memberLevelMapper;
