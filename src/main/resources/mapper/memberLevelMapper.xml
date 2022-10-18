@@ -55,7 +55,7 @@
         <select id="memberLevelGet" resultMap="memberLevelMap">
                 SELECT * FROM member_system.member_level where member_id=#{memberId}
         </select>
-<!--        数据总数-->
+<!--        数据总数  -->
         <select id="dataCounts" resultType="java.lang.Integer">
                 select  count(*)
                 FROM (SELECT A.member_id,A.level_name,A.exp_demand_start,A.exp_demand_end,A.create_id,A.update_id,ANY_VALUE(C.credential_name)
