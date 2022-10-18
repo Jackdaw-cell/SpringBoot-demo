@@ -42,7 +42,6 @@
                 inner join member_system.member_level_credentials AS C
                 on B.credential_id=C.credential_id
                 <where>
-<!--                        1-->
                         A.member_id like '%${keyWord}%' or
                         level_name like '%${keyWord}%' or
                         exp_demand_start like '%${keyWord}%' or
