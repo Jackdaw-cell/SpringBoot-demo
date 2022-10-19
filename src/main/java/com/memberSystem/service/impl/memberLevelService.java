@@ -5,6 +5,8 @@ import com.memberSystem.entity.memberLevelCredential;
 import com.memberSystem.mapper.memberLevelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -29,10 +31,17 @@ public class memberLevelService {
 //            会员等级表插入
             return memberLevelMapper.insert(memberLevel);
         }else {
+//            会员表关系
+            memberLevelMapper.deleteMC(memberLevel.getMemberId());
+            for (memberLevelCredential memberLevelCredential:
+                    memberLevel.getMemberLevelCredentials()) {
+                    memberLevelMapper.insertMC(memberLevel.getMemberId(),memberLevelCredential.getCredentialId());
+            }
             return memberLevelMapper.update(memberLevel);
         }
     }
 //    查询或关键词查询
+@Transactional
     public List<memberLevel> find(Integer pageNum,Integer pageSize, String keyWord){
         if (keyWord.isEmpty()) {
             return memberLevelMapper.findAll(pageNum,pageSize);
@@ -41,7 +50,7 @@ public class memberLevelService {
         }
     }
 //获取单个用户
-    public memberLevel memberLevelGet(Integer memberId){
+    public memberLevel memberLevelGet(Long memberId){
         return  memberLevelMapper.memberLevelGet(memberId);
     }
 //获取数据总数
@@ -50,13 +59,19 @@ public class memberLevelService {
     }
 
 //    删除
+//    删除功能要删除 member_level一条会员等级数据、m_c的多对多关系、会员等级用到的一条背景图片映射、一条头像映射
+//    ps：file里面存储的数据的是url-文件名的关系，只是映射并无实际作用意义
+    @Transactional
     public Integer delete(Long[] memberId){
         int flag=0;
         for (long id:
              memberId) {
-            if (memberLevelMapper.delete(id)==0){
+//            先删除照片，后删除mc和会员等级
+                memberLevelMapper.deleteFile(memberLevelMapper.findAvatar(id));
+                memberLevelMapper.deleteFile(memberLevelMapper.findBackground(id));
+                memberLevelMapper.delete(id);
+                memberLevelMapper.deleteMC(id);
                 flag=1;
-            }
         }
         return flag;
     }

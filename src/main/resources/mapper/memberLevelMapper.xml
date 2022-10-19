@@ -53,7 +53,13 @@
         </select>
 <!--        查询单个用户-->
         <select id="memberLevelGet" resultMap="memberLevelMap">
-                SELECT * FROM member_system.member_level where member_id=#{memberId}
+                SELECT A.member_id,level_name,exp_demand_start,exp_demand_end,A.is_show,background,A.avatar,is_default,C.credential_id
+                FROM member_system.member_level as A
+                inner join member_system.member_level_m_c AS B
+                on A.member_id=B.member_id
+                inner join member_system.member_level_credentials AS C
+                on B.credential_id=C.credential_id
+                where A.member_id=#{memberId}
         </select>
 <!--        数据总数  -->
         <select id="dataCounts" resultType="java.lang.Integer">

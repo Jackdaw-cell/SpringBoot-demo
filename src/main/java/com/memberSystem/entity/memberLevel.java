@@ -1,6 +1,7 @@
 package com.memberSystem.entity;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,6 +21,14 @@ public class memberLevel {
     private String updateTime;
     private Integer delFlag;
 
+//    private MultipartFile avatarFile;
+//    public MultipartFile getAvatarFile() {
+//        return avatarFile;
+//    }
+//
+//    public void setAvatarFile(MultipartFile avatarFile) {
+//        this.avatarFile = avatarFile;
+//    }
 //    权益集合
     private List<memberLevelCredential> memberLevelCredentials;
 
@@ -53,22 +62,6 @@ public class memberLevel {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public memberLevel(Long memberId, String levelName, String expDemandStart, String expDemandEnd, char isShow, String background, String avatar, char isDefault, Integer createId, String createTime, Integer updateId, String updateTime, Integer delFlag) {
-        this.memberId = memberId;
-        this.levelName = levelName;
-        this.expDemandStart = expDemandStart;
-        this.expDemandEnd = expDemandEnd;
-        this.isShow = isShow;
-        this.background = background;
-        this.avatar = avatar;
-        this.isDefault = isDefault;
-        this.createId = createId;
-        this.createTime = createTime;
-        this.updateId = updateId;
-        this.updateTime = updateTime;
-        this.delFlag = delFlag;
     }
 
     public String getCreateTime() {
